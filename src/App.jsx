@@ -388,42 +388,54 @@ const App = () => {
             </p>
           </AnimatedSection>
 
-          <div className="space-y-16">
-            {menuItems.map((category, categoryIndex) => (
-              <AnimatedSection key={category.category}>
-                <motion.h3 
-                  className="text-3xl font-bold mb-8 text-primary text-center"
-                  initial={{ opacity: 0, scale: 0.9 }}
-                  whileInView={{ opacity: 1, scale: 1 }}
-                  transition={{ duration: 0.5 }}
-                  viewport={{ once: true }}
-                >
-                  {category.category}
-                </motion.h3>
-                <div className="grid md:grid-cols-2 gap-6">
-                  {category.items.map((item, itemIndex) => (
-                    <motion.div
-                      key={itemIndex}
-                      initial={{ opacity: 0, y: 20 }}
-                      whileInView={{ opacity: 1, y: 0 }}
-                      transition={{ duration: 0.5, delay: itemIndex * 0.1 }}
+          {/* Horizontal Scrolling Menu Categories */}
+          <AnimatedSection>
+            <div className="overflow-x-auto pb-6">
+              <div className="flex gap-8 min-w-max">
+                {menuItems.map((category, categoryIndex) => (
+                  <motion.div
+                    key={category.category}
+                    className="flex-shrink-0 w-80"
+                    initial={{ opacity: 0, x: 50 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    transition={{ duration: 0.6, delay: categoryIndex * 0.2 }}
+                    viewport={{ once: true }}
+                  >
+                    <motion.h3 
+                      className="text-2xl font-bold mb-6 text-primary text-center"
+                      initial={{ opacity: 0, scale: 0.9 }}
+                      whileInView={{ opacity: 1, scale: 1 }}
+                      transition={{ duration: 0.5 }}
                       viewport={{ once: true }}
                     >
-                      <Card className="menu-item-card hover-lift h-full">
-                        <CardContent className="p-6">
-                          <div className="flex justify-between items-start mb-3">
-                            <h4 className="text-lg font-semibold">{item.name}</h4>
-                            <span className="text-xl font-bold text-primary">{item.price}</span>
-                          </div>
-                          <p className="text-muted-foreground leading-relaxed">{item.description}</p>
-                        </CardContent>
-                      </Card>
-                    </motion.div>
-                  ))}
-                </div>
-              </AnimatedSection>
-            ))}
-          </div>
+                      {category.category}
+                    </motion.h3>
+                    <div className="space-y-4">
+                      {category.items.map((item, itemIndex) => (
+                        <motion.div
+                          key={itemIndex}
+                          initial={{ opacity: 0, y: 20 }}
+                          whileInView={{ opacity: 1, y: 0 }}
+                          transition={{ duration: 0.5, delay: itemIndex * 0.1 }}
+                          viewport={{ once: true }}
+                        >
+                          <Card className="menu-item-card hover-lift h-full">
+                            <CardContent className="p-4">
+                              <div className="flex justify-between items-start mb-2">
+                                <h4 className="text-base font-semibold">{item.name}</h4>
+                                <span className="text-lg font-bold text-primary">{item.price}</span>
+                              </div>
+                              <p className="text-sm text-muted-foreground leading-relaxed">{item.description}</p>
+                            </CardContent>
+                          </Card>
+                        </motion.div>
+                      ))}
+                    </div>
+                  </motion.div>
+                ))}
+              </div>
+            </div>
+          </AnimatedSection>
 
           <AnimatedSection className="text-center mt-16">
             <div className="flex flex-wrap justify-center gap-4 mb-8">
@@ -644,4 +656,3 @@ const App = () => {
 };
 
 export default App;
-
